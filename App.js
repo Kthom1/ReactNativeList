@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import { StyleSheet, View, TextInput, Button, FlatList } from "react-native";
+import ListItem from "./components/ListItem";
 
 export default function App() {
   const [enteredText, setEnteredText] = useState("");
@@ -8,7 +9,10 @@ export default function App() {
     setEnteredText(enteredText);
   };
   const addTextHander = () => {
-    setListItems(listItems => [...listItems, enteredText]);
+    setListItems(listItems => [
+      ...listItems,
+      { key: Math.random().toString(), value: enteredText }
+    ]);
   };
   return (
     <View style={styles.container}>
@@ -20,13 +24,10 @@ export default function App() {
         />
         <Button title="ADD" onPress={addTextHander} />
       </View>
-      <View>
-        {listItems.map((item, index) => (
-          <View key={index} style={styles.listItem}>
-            <Text>{item}</Text>
-          </View>
-        ))}
-      </View>
+      <FlatList
+        data={listItems}
+        renderItem={itemData => <ListItem value={itemData.item.value} />}
+      />
     </View>
   );
 }
@@ -45,12 +46,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     width: "80%"
-  },
-  listItem: {
-    padding: 10,
-    marginVertical: 10,
-    backgroundColor: "#ccc",
-    borderColor: "black",
-    borderWidth: 1
   }
 });
