@@ -1,11 +1,17 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 export default function ListItem(props) {
   return (
-    <View key={props.key} style={styles.listItem}>
-      <Text>{props.value}</Text>
-    </View>
+    <TouchableOpacity
+      onPress={() => {
+        props.removeItemHandler(props.id);
+      }}
+    >
+      <View style={styles.listItem}>
+        <Text>{props.value}</Text>
+      </View>
+    </TouchableOpacity>
   );
 }
 

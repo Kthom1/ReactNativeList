@@ -7,17 +7,30 @@ export default function App() {
   const [listItems, setListItems] = useState([]);
 
   const addItemHandler = enteredText => {
-    setListItems(listItems => [
-      ...listItems,
-      { key: Math.random().toString(), value: enteredText }
+    setListItems(currentListItems => [
+      ...currentListItems,
+      { id: Math.random().toString(), value: enteredText }
     ]);
+  };
+
+  const removeItemHandler = itemId => {
+    setListItems(currentListItems => {
+      return currentListItems.filter(item => item.id !== itemId);
+    });
   };
   return (
     <View style={styles.container}>
       <ListInput addItemHandler={addItemHandler} />
       <FlatList
+        keyExtractor={item => item.id}
         data={listItems}
-        renderItem={itemData => <ListItem value={itemData.item.value} />}
+        renderItem={itemData => (
+          <ListItem
+            id={itemData.item.id}
+            value={itemData.item.value}
+            removeItemHandler={removeItemHandler}
+          />
+        )}
       />
     </View>
   );
