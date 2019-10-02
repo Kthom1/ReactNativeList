@@ -6,6 +6,10 @@ export default function ListInput(props) {
   const textInputHandler = enteredText => {
     setEnteredText(enteredText);
   };
+  const addItemAndClearField = () => {
+    props.addItemHandler(enteredText);
+    setEnteredText("");
+  };
   return (
     <Modal visible={props.canAdd} animationType="slide">
       <View style={styles.firstInner}>
@@ -14,6 +18,7 @@ export default function ListInput(props) {
           style={styles.textInput}
           onChangeText={textInputHandler}
         />
+        <Button title="CANCEL" color="red" onPress={props.cancelAdd} />
         <Button title="ADD" onPress={() => props.addItemHandler(enteredText)} />
       </View>
     </Modal>

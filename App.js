@@ -22,7 +22,13 @@ export default function App() {
   };
   return (
     <View style={styles.container}>
-      <ListInput canAdd={canAdd} addItemHandler={addItemHandler} />
+      <ListInput
+        canAdd={canAdd}
+        addItemHandler={addItemHandler}
+        cancelAdd={() => {
+          setCanAdd(false);
+        }}
+      />
       <Button
         title="Add Something"
         onPress={() => {
