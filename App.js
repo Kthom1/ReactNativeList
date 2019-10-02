@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { StyleSheet, View, TextInput, Button, FlatList } from "react-native";
+import { StyleSheet, View, Button, FlatList } from "react-native";
 import ListItem from "./components/ListItem";
 import ListInput from "./components/ListInput";
 
 export default function App() {
   const [listItems, setListItems] = useState([]);
+  const [canAdd, setCanAdd] = useState(false);
 
   const addItemHandler = enteredText => {
     setListItems(currentListItems => [
       ...currentListItems,
       { id: Math.random().toString(), value: enteredText }
     ]);
+    setCanAdd(false);
   };
 
   const removeItemHandler = itemId => {
@@ -20,7 +22,13 @@ export default function App() {
   };
   return (
     <View style={styles.container}>
-      <ListInput addItemHandler={addItemHandler} />
+      <ListInput canAdd={canAdd} addItemHandler={addItemHandler} />
+      <Button
+        title="Add Something"
+        onPress={() => {
+          setCanAdd(true);
+        }}
+      />
       <FlatList
         keyExtractor={item => item.id}
         data={listItems}
