@@ -18,8 +18,13 @@ export default function ListInput(props) {
           style={styles.textInput}
           onChangeText={textInputHandler}
         />
-        <Button title="CANCEL" color="red" onPress={props.cancelAdd} />
-        <Button title="ADD" onPress={() => props.addItemHandler(enteredText)} />
+        <View style={styles.buttonBox}>
+          <Button title="CANCEL" color="red" onPress={props.cancelAdd} />
+          <Button
+            title="ADD"
+            onPress={() => props.addItemHandler(enteredText)}
+          />
+        </View>
       </View>
     </Modal>
   );
@@ -35,6 +40,12 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
     padding: 10,
-    width: "80%"
+    width: "80%",
+    marginBottom: 20
+  },
+  buttonBox: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "60%"
   }
 });
